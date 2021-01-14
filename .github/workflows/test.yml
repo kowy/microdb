@@ -23,8 +23,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install -g yarn
+
     - name: Execute tests  
       run: | 
         yarn
         yarn build
         yarn test
+
+    - name: Upload codecov
+      env:
+        CODECOV_TOKEN: {{ secrets.CODECOV_TOKEN }}
+      run: yarn codecov
