@@ -1,3 +1,6 @@
+# MicroDB
+[![Test Status](https://github.com/escapace/typescript-library-starter/workflows/Release/badge.svg?branch=master)](https://github.com/kowy/microdb/actions?query=workflow:Test+branch:master)
+[![codecov](https://codecov.io/gh/kowy/microdb/branch/master/graph/badge.svg)](https://codecov.io/gh/kowy/microdb)
 ## :speech_balloon: Characteristics
 * pure embedded database
 * pure object database (objects are serialized to JSON directly in DB)
@@ -5,6 +8,7 @@
 * suitable for limited datasets (not more than millions of rows)
 * full database is stored in-memory and persisted to storage also (filestore or browser Local Storage)
 * provides both sync & async interface   
+* 100% Typescript code
 
 ## :package: Installation
 In project root simply run:

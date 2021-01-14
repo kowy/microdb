@@ -25,10 +25,7 @@ jobs:
     - run: npm install -g yarn
 
     - name: Execute tests  
-      run: | 
-        yarn
-        yarn build
-        yarn test
+      run: yarn
 
     - name: Upload codecov
       env:
