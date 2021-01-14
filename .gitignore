@@ -6,4 +6,5 @@ build
 /first/
 /lib/
 /.idea
+/coverage
 /microdb.iml
