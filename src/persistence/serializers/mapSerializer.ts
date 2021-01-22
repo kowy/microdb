@@ -1,4 +1,4 @@
-import { ISerializer } from "../Low"
+import { ISerializer } from "../low"
 
 export default class MapSerializer implements ISerializer {
   serialize(data: any): string {

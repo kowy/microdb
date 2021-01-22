@@ -1,5 +1,5 @@
-import MapSerializer from "./MapSerializer"
-import { createComplexMap, createSimpleMap, validateComplexMap, validateSimpleMap } from "./SerializerTestBase"
+import MapSerializer from "./mapSerializer"
+import { createComplexMap, createSimpleMap, validateComplexMap, validateSimpleMap } from "./serializerTestBase"
 
 describe("MapSerializer", () => {
   it("can serialize empty map", () => {

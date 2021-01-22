@@ -1,9 +1,9 @@
 import fs from "fs"
 import mutexify from "mutexify"
 import writeFileAtomic from "write-file-atomic"
-import { IAdapterAsync } from "../LowAsync"
+import { IAdapterAsync } from "../lowAsync"
 
-export default class JSONFile implements IAdapterAsync {
+export default class JsonFile implements IAdapterAsync {
   public file: string
   private lock = mutexify()
 

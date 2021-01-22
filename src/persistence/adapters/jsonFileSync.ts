@@ -1,8 +1,8 @@
 import fs from "fs"
 import writeFileAtomic from "write-file-atomic"
-import { IAdapter } from "../Low"
+import { IAdapter } from "../low"
 
-export default class JSONFileSync implements IAdapter {
+export default class JsonFileSync implements IAdapter {
   public file: string
 
   constructor(file: string) {

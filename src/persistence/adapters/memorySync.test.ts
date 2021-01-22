@@ -1,4 +1,4 @@
-import MemorySync from ".//MemorySync"
+import MemorySync from "./memorySync"
 
 describe("MemorySync", () => {
   it("should read and write", () => {

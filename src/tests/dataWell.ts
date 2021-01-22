@@ -1,5 +1,5 @@
 class DataWell {
-  simpleObject() {
+  simpleDoc() {
     return {
       stringAttr: "String Attribute with diacritics ěščřžýáíé",
       numberAttr: 935,
@@ -8,7 +8,7 @@ class DataWell {
     }
   }
 
-  multipleObjects() {
+  multipleDocs() {
     return [
       {
         stringAttr: "String3",

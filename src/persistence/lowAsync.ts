@@ -1,5 +1,5 @@
-import Memory from "./adapters/Memory"
-import ArraySerializerAsync from "./serializers/ArraySerializerAsync"
+import Memory from "./adapters/memory"
+import ArraySerializerAsync from "./serializers/arraySerializerAsync"
 
 export interface IAdapterAsync {
   read: () => Promise<any>

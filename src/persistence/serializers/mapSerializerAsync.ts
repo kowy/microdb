@@ -1,4 +1,4 @@
-import { ISerializerAsync } from "../LowAsync"
+import { ISerializerAsync } from "../lowAsync"
 
 export default class MapSerializerAsync implements ISerializerAsync {
   serialize(data: any): Promise<string> {
