@@ -22,10 +22,14 @@ jobs:
       uses: actions/setup-node@v1
       with:
         node-version: ${{ matrix.node-version }}
-    - run: npm install -g yarn
 
-    - name: Execute tests
-      run: yarn
+    - name: Install dependencies
+      run: yarn install
+
+    - name: Run tests
+      run: |
+        yarn build
+        yarn test
 
     - name: Upload codecov
       env:
