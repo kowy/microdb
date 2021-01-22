@@ -1,4 +1,4 @@
-import { IAdapter } from "../Low"
+import { IAdapter } from "../low"
 
 export default class Memory implements IAdapter {
   private data = null

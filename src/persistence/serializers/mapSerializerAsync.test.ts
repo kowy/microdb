@@ -1,5 +1,5 @@
-import MapSerializerAsync from "./MapSerializerAsync"
-import { createComplexMap, createSimpleMap, validateComplexMap, validateSimpleMap } from "./SerializerTestBase"
+import MapSerializerAsync from "./mapSerializerAsync"
+import { createComplexMap, createSimpleMap, validateComplexMap, validateSimpleMap } from "./serializerTestBase"
 
 describe("MapSerializerAsync", () => {
   it("can serialize empty map", async () => {

@@ -1,4 +1,4 @@
-import { IAdapterAsync } from "../LowAsync"
+import { IAdapterAsync } from "../lowAsync"
 
 export default class Memory implements IAdapterAsync {
   private data = null

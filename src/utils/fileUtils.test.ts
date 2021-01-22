@@ -1,4 +1,4 @@
-import FileUtils from "./FileUtils"
+import FileUtils from "./fileUtils"
 import del from "del"
 import * as fs from "fs"
 

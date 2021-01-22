@@ -1,12 +1,12 @@
 import tempy from "tempy"
-import JSONFileSync from "./JSONFileSync"
+import JsonFileSync from "./jsonFileSync"
 
 describe("JSONFileSync", () => {
   it("should read and write", () => {
     const obj = JSON.stringify({ a: 1 })
 
     const filename = tempy.file()
-    const file = new JSONFileSync(filename)
+    const file = new JsonFileSync(filename)
 
     // Null if file doesn't exist
     expect(file.read()).toBeNull()
