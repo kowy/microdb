@@ -30,8 +30,7 @@
     "build": "del-cli lib && tsc --build ./tsconfig.bundle.json",
     "test": "jest && yarn lint",
     "lint": "ls-lint && eslint --ext .js,.ts {src,test}/**/* --fix && prettier --write \"{src,test}/**/*.{js,ts}\"",
-    "prepare": "yarn build && yarn test",
-    "trypublish": "yarn prepare && yarn publish || true"
+    "trypublish": "yarn build && yarn test && yarn publish || true"
   },
 
   "engines": {
