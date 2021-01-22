@@ -41,7 +41,7 @@ export default class MicroDb {
 
   findAll(): FilterResponse<any> {
     const result: FilterResponse<any> = {
-      rows: [...this.memDb.read().values()],
+      docs: [...this.memDb.read().values()],
     }
 
     return DatabaseUtils.addStatistics(result)
@@ -55,57 +55,61 @@ export default class MicroDb {
 
   filter(request: FilterRequest): FilterResponse<any> {
     const filterFunctions = DatabaseUtils.getFilterFunctions(request.selector)
-    const rows = [...this.memDb.read().values()].filter((row) => DatabaseUtils.applyFilters(row, filterFunctions))
-    const result: FilterResponse<any> = { rows: rows }
+    const docs = [...this.memDb.read().values()].filter((doc) => DatabaseUtils.applyFilters(doc, filterFunctions))
+    const result: FilterResponse<any> = { docs: docs }
 
     // apply sorting if set in request
-    if (request.sort && result.rows.length > 0) {
-      const sorter = MicroDb.createSortComparator(rows, request.sort)
-      result.rows = result.rows.sort(sorter)
+    if (request.sort && result.docs.length > 0) {
+      const sorter = MicroDb.createSortComparator(docs, request.sort)
+      result.docs = result.docs.sort(sorter)
     }
 
     // apply limit if set in request
     if (request.limit && Number.isSafeInteger(request.limit)) {
-      result.rows = result.rows.slice(0, request.limit)
+      result.docs = result.docs.slice(0, request.limit)
     }
 
     return DatabaseUtils.addStatistics(result)
   }
 
-  upsert(row: any, options?: ModificationOperationOptions): unknown {
+  upsert(doc: any, options?: ModificationOperationOptions): unknown {
     const opts = { consistent: false, ...options }
-    const _id = row._id ? row._id : uuidv4()
-    row._id = _id
 
-    this.memDb.data.set(_id, row)
+    if (doc._id && typeof this.memDb.data.get(doc._id) === "undefined") {
+      throw new Error(`Document with id ${doc._id} does not exist`)
+    }
+    const _id = doc._id && doc._id != "" ? doc._id : uuidv4()
+    doc._id = _id
+
+    this.memDb.data.set(_id, doc)
 
     this._sync(opts.consistent)
 
-    return row
+    return doc
   }
 
-  upsertAll(rows: any[], options?: ModificationOperationOptions): Array<unknown> {
+  upsertAll(docs: any[], options?: ModificationOperationOptions): Array<unknown> {
     const opts = { consistent: false, ...options }
 
-    const updatedRows = rows.map((row) => this.upsertOneRow(row))
+    const updatedDocs = docs.map((doc) => this.upsertOneDoc(doc))
 
     this._sync(opts.consistent)
 
-    return updatedRows
+    return updatedDocs
   }
 
-  modify(id: string, modificatorFunction: (a: any) => any, options?: ModificationOperationOptions): unknown {
-    if (!this.memDb.data.has(id)) return null
+  modifyById(id: string, modificatorFunction: (a: any) => any, options?: ModificationOperationOptions): unknown {
+    if (!this.memDb.data.has(id)) return undefined
 
     const opts = { consistent: false, ...options }
-    const updatedRow = modificatorFunction(Object.assign({}, this.memDb.data.get(id)))
+    const updatedDoc = modificatorFunction(Object.assign({}, this.memDb.data.get(id)))
     // the user might change the id, so repair it
-    updatedRow.id = id
-    this.memDb.data.set(id, updatedRow)
+    updatedDoc.id = id
+    this.memDb.data.set(id, updatedDoc)
 
     this._sync(opts.consistent)
 
-    return updatedRow
+    return updatedDoc
   }
 
   deleteById(id: string, options?: ModificationOperationOptions): boolean {
@@ -113,19 +117,22 @@ export default class MicroDb {
 
     const result = this.memDb.data.delete(id)
 
-    this._sync(opts.consistent)
+    if (result) {
+      this._sync(opts.consistent)
+    }
+
     return result
   }
 
-  private upsertOneRow(row: any): unknown {
-    const _id = row._id ? row._id : uuidv4()
-    row._id = _id
+  private upsertOneDoc(doc: any): unknown {
+    const _id = doc._id ? doc._id : uuidv4()
+    doc._id = _id
 
-    this.memDb.data.set(_id, Object.assign({}, row))
-    return row
+    this.memDb.data.set(_id, Object.assign({}, doc))
+    return doc
   }
 
-  private static createSortComparator(rows: any[], sorter: SortRequest): (a: any, b: any) => number {
+  private static createSortComparator(docs: any[], sorter: SortRequest): (a: any, b: any) => number {
     let result: (a: any, b: any) => number
 
     if (typeof sorter === "function") {
@@ -134,9 +141,9 @@ export default class MicroDb {
       const sortAttr: string = typeof sorter === "string" ? sorter : Object.keys(sorter)[0]
       const sortDirection: string = typeof sorter === "string" ? "asc" : sorter[sortAttr]
       if (sortDirection === "desc") {
-        if (typeof rows[0][sortAttr] === "number") {
+        if (typeof docs[0][sortAttr] === "number") {
           result = (a: any, b: any) => b[sortAttr] - a[sortAttr]
-        } else if (typeof rows[0][sortAttr] === "boolean") {
+        } else if (typeof docs[0][sortAttr] === "boolean") {
           result = (a: any, b: any) => {
             if (a[sortAttr]) {
               if (b[sortAttr]) return 1
@@ -146,7 +153,7 @@ export default class MicroDb {
             if (b[sortAttr]) return 0
             return 1
           }
-        } else if (typeof rows[0][sortAttr] === "string") {
+        } else if (typeof docs[0][sortAttr] === "string") {
           result = (a: any, b: any): number => {
             const aValue: string = a[sortAttr]
             const bValue: string = b[sortAttr]
@@ -160,9 +167,9 @@ export default class MicroDb {
           }
         }
       } else {
-        if (typeof rows[0][sortAttr] === "number") {
+        if (typeof docs[0][sortAttr] === "number") {
           result = (a: any, b: any): number => a[sortAttr] - b[sortAttr]
-        } else if (typeof rows[0][sortAttr] === "boolean") {
+        } else if (typeof docs[0][sortAttr] === "boolean") {
           result = (a: any, b: any): number => {
             if (a[sortAttr]) {
               if (b[sortAttr]) return 0
@@ -172,7 +179,7 @@ export default class MicroDb {
             if (b[sortAttr]) return 1
             return 0
           }
-        } else if (typeof rows[0][sortAttr] === "string") {
+        } else if (typeof docs[0][sortAttr] === "string") {
           result = (a: any, b: any): number => {
             const aValue: string = a[sortAttr]
             const bValue: string = b[sortAttr]

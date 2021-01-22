@@ -3,18 +3,18 @@ import { Selector } from "../dto/Filter"
 
 describe("DatabaseUtils", () => {
   test("can add statistics to empty result", () => {
-    const result = DatabaseUtils.addStatistics({ rows: [] })
+    const result = DatabaseUtils.addStatistics({ docs: [] })
     expect(result.offset).toEqual(0)
     expect(result.pageSize).toEqual(0)
-    expect(result.totalRows).toEqual(0)
+    expect(result.totalDocs).toEqual(0)
   })
   test("can add statistics", () => {
     const result = DatabaseUtils.addStatistics({
-      rows: ["Peter's object", "Kamil's object", "My object"],
+      docs: ["Peter's document", "Kamil's document", "My document"],
     })
     expect(result.offset).toEqual(0)
     expect(result.pageSize).toEqual(0)
-    expect(result.totalRows).toEqual(3)
+    expect(result.totalDocs).toEqual(3)
   })
 
   test("can accept empty selector and unknown filters", () => {
@@ -139,7 +139,7 @@ describe("DatabaseUtils", () => {
   })
 })
 
-function exampleRow() {
+function exampleDoc() {
   return {
     id: 364,
     lastName: "Tyl",
@@ -150,18 +150,20 @@ function exampleRow() {
   }
 }
 function shouldMatch(selector: Selector) {
-  const row = exampleRow()
+  const doc = exampleDoc()
   const filters = DatabaseUtils.getFilterFunctions(selector)
-  const result = DatabaseUtils.applyFilters(row, filters)
-  if (!result) throw new Error(`checkShouldFind: selector ${JSON.stringify(selector)} does not match row ${JSON.stringify(row)}`)
+  const result = DatabaseUtils.applyFilters(doc, filters)
+  if (!result) {
+    throw new Error(`checkShouldFind: selector ${JSON.stringify(selector)} does not match document ${JSON.stringify(doc)}`)
+  }
 }
 
 function shouldNotMatch(selector: Selector) {
-  const row = exampleRow()
+  const doc = exampleDoc()
   const filters = DatabaseUtils.getFilterFunctions(selector)
-  const result = DatabaseUtils.applyFilters(row, filters)
+  const result = DatabaseUtils.applyFilters(doc, filters)
   if (result)
     throw new Error(
-      `checkShouldNotFind: selector ${JSON.stringify(selector)} match row ${JSON.stringify(row)} despite it shouldn't`
+      `checkShouldNotFind: selector ${JSON.stringify(selector)} match document ${JSON.stringify(doc)} despite it shouldn't`
     )
 }
