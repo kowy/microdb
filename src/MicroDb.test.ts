@@ -70,6 +70,15 @@ test("Can update document by id", () => {
   expect(obj2).toMatchObject(modifiedObj)
 })
 
+test("Should throw error when upserting doc with non-existing id", () => {
+  const db = new MicroDb("emptyDb", {})
+
+  const doc: any = datawell.simpleDoc()
+  doc._id = "000000000000x"
+
+  expect(() => db.upsert(doc)).toThrowError(/does not exist/)
+})
+
 test("Can modify values by id", () => {
   const db = new MicroDb("modifyFunction", {})
   const originDocs: any = db.upsertAll(datawell.multipleDocs(), { consistent: true })
@@ -88,6 +97,11 @@ test("Can modify values by id", () => {
   expect(result2.docs[0]).toMatchObject(modifiedDocument)
   expect(result2.docs[0].stringAttr).toBe("String3 modified")
   expect(result2.docs[0].numberAttr).toBe(16)
+
+  const result3 = db.modifyById("non-existing", () => {
+    throw new Error("Should not go here")
+  })
+  expect(result3).toBeUndefined()
 })
 
 test("Can find document by id", () => {
