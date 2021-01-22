@@ -1,6 +1,6 @@
 # MicroDB
-[![Test Status](https://github.com/escapace/typescript-library-starter/workflows/Test/badge.svg?branch=dev)](https://github.com/kowy/microdb/actions?query=workflow:Test+branch:dev)
-[![Release Status](https://github.com/escapace/typescript-library-starter/workflows/Release/badge.svg?branch=master)](https://github.com/kowy/microdb/actions?query=workflow:Release+branch:master)
+[![Test](https://github.com/kowy/microdb/workflows/Test/badge.svg?branch=dev)](https://github.com/kowy/microdb/actions?query=workflow:Test+branch:dev)
+[![Release](https://github.com/kowy/microdb/workflows/Release/badge.svg)](https://github.com/kowy/microdb/actions?query=workflow:Release+branch:master)
 [![codecov](https://codecov.io/gh/kowy/microdb/branch/master/graph/badge.svg)](https://codecov.io/gh/kowy/microdb)
 ## :speech_balloon: Characteristics
 * pure embedded database
