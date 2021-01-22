@@ -1,5 +1,5 @@
-import ArraySerializerAsync from "./ArraySerializerAsync"
-import { createComplexObject, validateComplexObject } from "./SerializerTestBase"
+import ArraySerializerAsync from "./arraySerializerAsync"
+import { createComplexObject, validateComplexObject } from "./serializerTestBase"
 
 describe("ObjectSerializerAsync", () => {
   it("can serialize empty object", async () => {

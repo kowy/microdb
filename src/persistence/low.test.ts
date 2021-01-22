@@ -1,10 +1,10 @@
 import fs from "fs"
 import tempy from "tempy"
-import Low from "./Low"
-import JSONFileAdapter from "./adapters/JSONFileSync"
-import MapSerializer from "./serializers/MapSerializer"
-import ArraySerializer from "./serializers/ArraySerializer"
-import { createSimpleMap } from "./serializers/SerializerTestBase"
+import Low from "./low"
+import JSONFileAdapter from "./adapters/jsonFileSync"
+import MapSerializer from "./serializers/mapSerializer"
+import ArraySerializer from "./serializers/arraySerializer"
+import { createSimpleMap } from "./serializers/serializerTestBase"
 
 interface IData {
   a?: number

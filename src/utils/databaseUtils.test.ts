@@ -1,5 +1,5 @@
-import DatabaseUtils from "./DatabaseUtils"
-import { Selector } from "../dto/Filter"
+import DatabaseUtils from "./databaseUtils"
+import { Selector } from "../dto/filter"
 
 describe("DatabaseUtils", () => {
   test("can add statistics to empty result", () => {

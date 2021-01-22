@@ -1,12 +1,12 @@
 import { v4 as uuidv4 } from "uuid"
-import JSONFileSync from "./persistence/adapters/JSONFileSync"
-import MemorySync from "./persistence/adapters/MemorySync"
-import { MicroDbOptions, ModificationOperationOptions } from "./dto/MicroDbOptions"
-import Low from "./persistence/Low"
-import MapSerializer from "./persistence/serializers/MapSerializer"
-import FileUtils from "./utils/FileUtils"
-import DatabaseUtils from "./utils/DatabaseUtils"
-import { FilterRequest, FilterResponse, SortRequest } from "./dto/Filter"
+import JsonFileSync from "./persistence/adapters/jsonFileSync"
+import MemorySync from "./persistence/adapters/memorySync"
+import { MicroDbOptions, ModificationOperationOptions } from "./dto/microDbOptions"
+import Low from "./persistence/low"
+import MapSerializer from "./persistence/serializers/mapSerializer"
+import FileUtils from "./utils/fileUtils"
+import DatabaseUtils from "./utils/databaseUtils"
+import { FilterRequest, FilterResponse, SortRequest } from "./dto/filter"
 
 const DB_DIRECTORY = "./db"
 const SAVE_CHECK_TIMETOUT_MS = 1000
@@ -27,7 +27,7 @@ export default class MicroDb {
     FileUtils.createDirectoryIfNotExists(opts.root)
 
     const serializer = new MapSerializer()
-    const fileAdapter = new JSONFileSync(`${opts.root}/${this.dbName}.json`)
+    const fileAdapter = new JsonFileSync(`${opts.root}/${this.dbName}.json`)
     this.db = new Low<Map<string, any>>(fileAdapter, serializer)
 
     const memAdapter = new MemorySync()

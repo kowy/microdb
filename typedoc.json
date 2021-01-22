@@ -1,9 +1,0 @@
-
-{
-    "out": "./docs",
-    "entryPoints": ["src/MicroDb.ts"],
-    "name": "MicroDb",
-    "theme": "markdown",
-    "readme": "none",
-    "tsconfig": "./tsconfig.json"
-}

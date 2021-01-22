@@ -1,6 +1,6 @@
-import { FilterResponse, isMatcherFunction, isSelectorObject, MatcherFunction, Selector, SelectorObject } from "../dto/Filter"
+import { FilterResponse, isMatcherFunction, isSelectorObject, MatcherFunction, Selector, SelectorObject } from "../dto/filter"
 import isEqual from "lodash/isEqual"
-import * as f from "./FilterUtils"
+import * as f from "./filterUtils"
 
 export default class DatabaseUtils {
   public static addStatistics(result: FilterResponse<any>): FilterResponse<any> {

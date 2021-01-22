@@ -1,6 +1,6 @@
 import isEqual from "lodash/isEqual"
-import { Selector, SelectorObject } from "../dto/Filter"
-import StringUtils from "./StringUtils"
+import { Selector, SelectorObject } from "../dto/filter"
+import StringUtils from "./stringUtils"
 
 export function greaterThanFilter(doc: any, attrName: string, condition: Selector): boolean {
   if (typeof doc[attrName] === "string" && typeof condition.$gt === "string") {

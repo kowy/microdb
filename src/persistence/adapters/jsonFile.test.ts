@@ -1,12 +1,12 @@
 import tempy from "tempy"
-import JSONFile from "./JSONFile"
+import JsonFile from "./jsonFile"
 
-describe("JSONFile", () => {
+describe("JsonFile", () => {
   it("should read and write", async () => {
     const obj = JSON.stringify({ a: 1 })
 
     const filename = tempy.file()
-    const file = new JSONFile(filename)
+    const file = new JsonFile(filename)
 
     // Null if file doesn't exist
     expect(await file.read()).toBeNull()
@@ -20,7 +20,7 @@ describe("JSONFile", () => {
 
   it("should preserve order", async () => {
     const filename = tempy.file()
-    const file = new JSONFile(filename)
+    const file = new JsonFile(filename)
     const promises = []
 
     let i

@@ -1,5 +1,5 @@
-import MemorySync from "./adapters/MemorySync"
-import ArraySerializer from "./serializers/ArraySerializer"
+import MemorySync from "./adapters/memorySync"
+import ArraySerializer from "./serializers/arraySerializer"
 
 export interface IAdapter {
   read: () => any

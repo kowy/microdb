@@ -1,6 +1,6 @@
 import fs from "fs"
-import MicroDb from "../src/MicroDb"
-import datawell from "./tests/DataWell"
+import MicroDb from "../src/microDb"
+import datawell from "./tests/dataWell"
 import del from "del"
 
 beforeAll(() => {
