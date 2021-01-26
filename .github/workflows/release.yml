@@ -27,8 +27,9 @@ jobs:
 
     - name: Publish
       run: |
-        echo "registry=https://registry.npmjs.org/" > ~/.npmrc
-        echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> ~/.npmrc
+        cat $NPM_CONFIG_USERCONFIG
+        echo "registry=https://registry.npmjs.org/" > $NPM_CONFIG_USERCONFIG
+        echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> $NPM_CONFIG_USERCONFIG
         yarn publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
