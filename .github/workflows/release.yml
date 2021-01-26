@@ -22,7 +22,13 @@ jobs:
     - name: Install dependencies
       run: yarn install
 
-    - name: Tests & publish
-      run: yarn trypublish
+    - name: Tests
+      run: yarn test
+
+    - name: Publish
+      run: |
+        echo "registry=https://registry.npmjs.org/" > ~/.npmrc
+        echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" >> ~/.npmrc
+        yarn publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

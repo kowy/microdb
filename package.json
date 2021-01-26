@@ -29,8 +29,7 @@
   "scripts": {
     "build": "del-cli lib && tsc --build ./tsconfig.bundle.json",
     "test": "jest && yarn lint",
-    "lint": "ls-lint && eslint --ext .js,.ts {src,test}/**/* --fix && prettier --write \"{src,test}/**/*.{js,ts}\"",
-    "trypublish": "yarn build && yarn test && yarn publish || true"
+    "lint": "ls-lint && eslint --ext .js,.ts {src,test}/**/* --fix && prettier --write \"{src,test}/**/*.{js,ts}\""
   },
 
   "engines": {
