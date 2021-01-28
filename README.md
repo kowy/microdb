@@ -1,3 +1,5 @@
+# This project is obsolete. Renamed to [GooDB](https://github.com/kowy/goodb)
+
 # MicroDB
 [![Test](https://github.com/kowy/microdb/workflows/Test/badge.svg?branch=dev)](https://github.com/kowy/microdb/actions?query=workflow:Test+branch:dev)
 [![Release](https://github.com/kowy/microdb/workflows/Release/badge.svg)](https://github.com/kowy/microdb/actions?query=workflow:Release+branch:master)
